@@ -117,5 +117,59 @@ contract practice {
         return S_class_students;
     }
 
+    // S반 : 강사님 코드
+    function S_Class() public view returns(Student[] memory){
+        Student[] memory S_Student = students;  // 상태변수 쓰기 싫어!
+        Student[] memory S_Class = new Student[](4);
+
+        for(uint i = 0; i < S_Student.length-1; i++) {
+            for(uint j = i+1; j < S_Student.length; j++) {
+                if(S_Student[i].score < S_Student[j].score) {
+                    (S_Student[i], S_Student[j]) = (S_Student[j], S_Student[i]);
+                }
+            }
+        }
+
+        for(uint i=0; i < 4; i++) {
+            S_Class[i] = S_Student[i];
+        }
+
+        return S_Class;
+
+    }
+
+
+}
+
+contract Sorting {
+    uint[] numbers;
+
+    function push(uint _n) public {
+        numbers.push(_n);
+    }
+
+    function sorting() public {
+        for(uint i = 0; i < numbers.length-1; i++) {
+            for(uint j = i+1; j < numbers.length; j++) {
+                if(numbers[i] < numbers[j]) {
+                    (numbers[i], numbers[j]) = (numbers[j], numbers[i]);
+                }
+            }
+        }
+    }
+
+    function sorting2() public {
+        for(uint j=1; j < numbers.length; j++) {
+            for(uint i=0; i<j; i++) {
+                if(numbers[i] < numbers[j]) {
+                    (numbers[i], numbers[j]) = (numbers[j], numbers[i]);
+                }
+            }
+        }
+    }
+
+    function get() public view returns(uint[] memory) {
+        return numbers;
+    }
 
 }
